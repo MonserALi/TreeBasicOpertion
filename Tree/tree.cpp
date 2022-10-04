@@ -94,11 +94,47 @@ void postOrder(treeNode *root,string &chk)
     chk+=to_string(root->data);
 }
 
+
+void levelOrderTraversal(treeNode *root,string &chk)
+{
+    if(!root){
+        return;
+    }
+
+    queue <treeNode*> q;
+    q.push(root);
+    q.push(NULL);
+
+    while(!q.empty()){
+        treeNode *chkNode = q.front();
+        q.pop();
+        if(chkNode){
+           chk+= to_string(chkNode->data) + " ";
+          // cout<<chkNode->data<<" ";
+           if(chkNode->leftChild != NULL){
+            q.push(chkNode->leftChild);
+           }
+           if(chkNode->righChild!=NULL){
+            q.push(chkNode->righChild);
+           }
+        }
+        else{
+            if(!q.empty()){
+                //cout<<endl;
+                q.push(NULL);
+            }
+        }
+
+
+    }
+}
+
 int main()
 {
     string preorderTraversal;
     string inorderTraversal;
     string postorderTraversal;
+    string levelrderTraversal;
 
     int n;
     cin>>n;
@@ -136,32 +172,39 @@ int main()
 
     cout<<"Choice 1: Traverse the Tree Pre-Order"<<endl
         <<"Choice 2: Traverse the Tree In-Order"<<endl
-        <<"Choice 3: Traverse the Tree Post-Order"<<endl <<endl;
+        <<"Choice 3: Traverse the Tree Post-Order"<<endl
+        <<"Choice 4: Traverse the Tree Level-Order"<<endl
+        <<endl;
 
     int choice;
 
-        cout<<"Choice :";
-        cin>>choice;
-        switch(choice)
-        {
-        case 1:
-            preOrder(allNode[0],preorderTraversal);
+    cout<<"Choice :";
+    cin>>choice;
+    switch(choice)
+    {
+    case 1:
+        preOrder(allNode[0],preorderTraversal);
 
-            cout<<"Preoder Traversal is: "<<preorderTraversal<<endl;
-            break;
-        case 2:
-            inOrder(allNode[0],inorderTraversal);
+        cout<<"Preoder Traversal is: "<<preorderTraversal<<endl;
+        break;
+    case 2:
+        inOrder(allNode[0],inorderTraversal);
 
-            cout<<"Inorder traversal is: "<<inorderTraversal<<endl;
-            break;
-        case 3:
-            postOrder(allNode[0],postorderTraversal);
+        cout<<"Inorder traversal is: "<<inorderTraversal<<endl;
+        break;
+    case 3:
+        postOrder(allNode[0],postorderTraversal);
 
-            cout<<"\npostorder traversal is: "<<postorderTraversal<<endl;
-            break;
-        default:
-            break;
-        }
+        cout<<"\npostorder traversal is: "<<postorderTraversal<<endl;
+        break;
+    case 4:
+        levelOrderTraversal(allNode[0],levelrderTraversal);
+
+        cout<<"\npostorder traversal is: "<<levelrderTraversal<<endl;
+        break;
+    default:
+        break;
+    }
 
 
     return 0;
